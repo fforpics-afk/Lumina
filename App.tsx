@@ -85,6 +85,23 @@ const App: React.FC = () => {
     return window.location.origin;
   });
 
+  useEffect(() => {
+    // FORCE RESET: If we are on mobile/Capacitor and the saved URL is localhost, 
+    // it's a leftover from a previous version. Reset it to production.
+    const isNative = window.location.protocol.includes('capacitor') || (window as any).Capacitor?.isNative;
+    if (isNative && backendUrl.includes('localhost')) {
+      console.log('Mobile device detected with localhost backend. Resetting to production URL.');
+      setBackendUrl(DEFAULT_DEPLOYMENT_URL);
+    }
+  }, [backendUrl]);
+
+  const resetBackendToDefault = () => {
+    const isCapacitor = window.location.protocol.includes('capacitor') || window.location.hostname === 'localhost';
+    const target = isCapacitor ? DEFAULT_DEPLOYMENT_URL : window.location.origin;
+    setBackendUrl(target);
+    setTestResult({ success: true, message: "Settings reset to defaults." });
+  };
+
   const [isTestingConnection, setIsTestingConnection] = useState(false);
   const [testResult, setTestResult] = useState<{ success: boolean; message: string } | null>(null);
 
@@ -183,7 +200,7 @@ const App: React.FC = () => {
     };
   }, [isVoiceWakeEnabled, status]);
 
-  const APP_VERSION = '1.3.4';
+  const APP_VERSION = '1.3.5';
 
   const getClimate = () => {
     return weather.condition;
@@ -665,9 +682,17 @@ const App: React.FC = () => {
                         {testResult.message}
                       </p>
                     )}
-                    <p className="text-[8px] text-white/20 mt-1 italic leading-tight">
-                      This is where the APK connects. We've auto-set this to your production server.
-                    </p>
+                    <div className="flex justify-between items-center mt-2">
+                      <p className="text-[8px] text-white/20 italic leading-tight max-w-[150px]">
+                        This is where the APK connects. We've auto-set this to your production server.
+                      </p>
+                      <button 
+                        onClick={resetBackendToDefault}
+                        className="text-[8px] uppercase tracking-widest text-rose-400/60 hover:text-rose-400 transition-colors"
+                      >
+                        Reset to Defaults
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>
