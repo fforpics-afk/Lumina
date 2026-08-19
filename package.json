@@ -1,0 +1,35 @@
+{
+  "name": "lumina:-your-empathic-companion",
+  "private": true,
+  "version": "1.0.1",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "lint": "tsc --noEmit",
+    "preview": "vite preview",
+    "start": "tsx server.ts",
+    "mobile:sync": "npm run build && npx cap sync android",
+    "mobile:open": "npx cap open android"
+  },
+  "dependencies": {
+    "@capacitor/android": "^8.5.0",
+    "@capacitor/assets": "^3.0.5",
+    "@capacitor/cli": "^8.5.0",
+    "@capacitor/core": "^8.5.0",
+    "@google/genai": "^1.34.0",
+    "@types/express": "5.0.0",
+    "@types/ws": "8.5.14",
+    "express": "4.21.2",
+    "react": "^19.2.3",
+    "react-dom": "^19.2.3",
+    "tsx": "4.19.2",
+    "ws": "8.18.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.14.0",
+    "@vitejs/plugin-react": "^5.0.0",
+    "typescript": "~5.8.2",
+    "vite": "^6.2.0"
+  }
+}

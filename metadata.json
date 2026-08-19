@@ -1,0 +1,10 @@
+{
+  "name": "Lumina: Your Empathic Companion",
+  "description": "A comforting voice-first application designed to provide companionship and ease loneliness through real-time, soulful conversations powered by Gemini 2.5 Live API.",
+  "requestFramePermissions": [
+    "microphone"
+  ],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
